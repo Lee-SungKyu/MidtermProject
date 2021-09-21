@@ -14,8 +14,9 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
+		Menu.displaymenu();
 		do {
-			Menu.displaymenu();
+			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
@@ -51,13 +52,17 @@ public class TodoMain {
 				l.sortByDate();
 				isList = true;
 				break;
-
+			
+			case "help":
+				Menu.displaymenu();
+				break;
+				
 			case "exit":
 				quit = true;
 				break;
 
 			default:
-				System.out.println("please enter one of the above mentioned command");
+				System.out.println("입력하신 커맨드가 존재하지 않습니다. 다시 입력해 주세요.");
 				break;
 			}
 			
