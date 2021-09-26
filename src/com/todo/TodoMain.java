@@ -29,7 +29,7 @@ public class TodoMain {
 			case "del":
 				TodoUtil.deleteItem(l);
 				break;
-				
+			
 			case "edit":
 				TodoUtil.updateItem(l);
 				break;
