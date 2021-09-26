@@ -11,7 +11,11 @@ public class Menu {
         System.out.println("항목 출력하기 - [ls]");
         System.out.println("항목 정렬하기(오름차순) - [ls_name_asc]");
         System.out.println("항목 정렬하기(내림차순) - [ls_name_desc]");
-        System.out.println("항목 정렬하기(날짜순) - [ls_date]");
+        System.out.println("항목 정렬하기(날짜순 오름차순) - [ls_date]");
+        System.out.println("항목 정렬하기(날짜순 내림차순) - [ls_date_desc]");
+        System.out.println("항목 검색하기 - [find]");
+        System.out.println("항목 검색하기(카테고리) - [find_cate]");
+        System.out.println("카테고리 출력하시 - [ls_cate]");
         System.out.println("도움말 - [help]");
         System.out.println("끝내기 - [exit]");
     }

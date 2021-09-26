@@ -176,4 +176,38 @@ public class TodoUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void find(TodoList l, String keyword)
+	{
+		for (TodoItem item : l.getList())
+		{
+			
+			if (item.getCategory().contains(keyword) || item.getCategory().contains(keyword) || item.getTitle().contains(keyword) || item.getDesc().contains(keyword) || item.getCurrent_date().contains(keyword) || item.getDue_date().contains(keyword))
+			{
+				System.out.println(l.indexOf(item)+1 + ". [카테고리] " + item.getCategory()+ " | [제목] " + item.getTitle() + " | [내용] " + item.getDesc() + " | [날짜] " + item.getCurrent_date() + " | [마감일] " + item.getDue_date());
+			}
+		}
+	}
+	public static void find_cate(TodoList l, String keyword)
+	{
+		for (TodoItem item : l.getList())
+		{
+			
+			if (item.getCategory().contains(keyword))
+			{
+				System.out.println(l.indexOf(item)+1 + ". [카테고리] " + item.getCategory()+ " | [제목] " + item.getTitle() + " | [내용] " + item.getDesc() + " | [날짜] " + item.getCurrent_date() + " | [마감일] " + item.getDue_date());
+			}
+		}
+	}
+	public static void list_cate(TodoList l) {
+		HashSet<String> cate = new HashSet<String>();
+		for (TodoItem item : l.getList()) {
+			cate.add(item.getCategory());
+		}
+		for(Object obj : cate.toArray()) {
+			String category = (String) obj;
+			System.out.print(category+" | ");
+		}
+		System.out.println("\n총 "+cate.size()+"개의 카테고리가 등록되어 있습니다.");
+	}
 }
