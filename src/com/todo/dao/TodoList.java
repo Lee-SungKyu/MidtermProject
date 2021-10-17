@@ -13,8 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.todo.service.TodoSortByDate;
-import com.todo.service.TodoSortByName;
 import com.todo.service.DbConnect;
 
 public class TodoList {
