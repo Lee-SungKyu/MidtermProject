@@ -28,7 +28,7 @@ public class DbConnect {
 			try
 			{
 				Class.forName("org.sqlite.JDBC");
-				conn = DriverManager.getConnection("jdbc:sqlite:" + "todolist.db");
+				conn = DriverManager.getConnection("jdbc:sqlite:" + "test.db");
 			}
 			catch(Exception e)
 			{

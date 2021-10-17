@@ -12,6 +12,7 @@ import com.todo.dao.TodoItem;
 import com.todo.dao.TodoList;
 
 public class TodoUtil {
+	
 	public static void listAll(TodoList l)
 	{
 		System.out.println("========== [전체 목록] ==========" + "\n");
@@ -25,12 +26,20 @@ public class TodoUtil {
 	
 	public static void createItem(TodoList list) {
 		
-		String title, desc, category, due_date;
+		String name, title, desc, category, due_date;
+		int priority;
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("\n"
-				+ "========== [항목 추가하기] ==========" + "\n" +"제목을 입력해 주세요 > ");
+				+ "========== [항목 추가하기] ==========" + "\n");
 		
+		System.out.print("이름을 입력해 주세요 > ");
+		name = sc.next();
+		
+		System.out.print("중요도를 입력해 주세요 (숫자만 입력해 주세요) > ");
+		priority = sc.nextInt();
+		
+		System.out.print("제목을 입력해 주세요 > ");
 		title = sc.next();
 		
 		if (list.isDuplicate(title)) {
@@ -49,7 +58,7 @@ public class TodoUtil {
 		System.out.print("마감일자를 입력해 주세요 (????/??/??) >");
 		due_date = sc.nextLine().trim();
 		
-		TodoItem t = new TodoItem(title, desc,category,due_date);
+		TodoItem t = new TodoItem(name, priority, title, desc,category,due_date);
 		
 		if(list.addItem(t)>0)
 		{
@@ -64,9 +73,16 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("\n" + "========== [항목 수정하기] ==========" + "\n" +"수정할 번호를 입력해 주세요 > ");
+		System.out.print("\n" + "========== [항목 수정하기] ==========" + "\n");
+		
+		System.out.print("수정할 번호를 입력해 주세요 > ");
 		int choice = sc.nextInt();
 		
+		System.out.print("새 이름을 입력해 주세요 > ");
+		String new_name = sc.next().trim();
+		
+		System.out.print("중요도를 입력해 주세요 (숫자만 입력해 주세요) > ");
+		int new_priority = sc.nextInt();
 		
 		System.out.print("새 제목을 입력해 주세요 > ");
 		String new_title = sc.next().trim();
@@ -87,7 +103,7 @@ public class TodoUtil {
 		System.out.print("새 마감일을 입력해 주세요 (????/??/??) > ");
 		String new_due_date = sc.nextLine().trim();
 		
-		TodoItem t = new TodoItem(new_title, new_description, new_category, new_due_date);
+		TodoItem t = new TodoItem(new_name, new_priority, new_title, new_description, new_category, new_due_date);
 		t.setId(choice);
 		if (l.updateItem(t) > 0)
 		{
@@ -96,6 +112,7 @@ public class TodoUtil {
 		}
 		
 	}
+	
 	public static void deleteItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -110,6 +127,81 @@ public class TodoUtil {
 		}
 	}
 	
+	public static void deleteMItem(TodoList l)
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("\n" + "========== [항목 삭제하기] ==========" + "\n");
+		
+		System.out.println("삭제할 항목 개수를 적어주세요 > ");
+		int count = sc.nextInt();
+		
+		System.out.println("항목 완료할 번호를 적어주세요 (예: 1 2 4) > ");
+		
+		for (int i = 0; i < count; i++)
+		{
+			int items = sc.nextInt();
+			
+			if(l.deleteItem(items) > 0)
+			{
+				System.out.println(items + "번 항목이 삭제 되었습니다");
+			}
+			else
+			{
+				System.out.println(items + "번 항목은 존재하지 않습니다.");
+			}
+		}
+		
+		
+		System.out.println("\n" + "항목들이 삭제 되었습니다.");
+		System.out.println("===============================");
+	}
+	
+	public static void completeItem(TodoList l)
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("항목 완료할 개수를 적어주세요 > ");
+		int count = sc.nextInt();
+		
+		System.out.println("항목 완료할 번호를 적어주세요 (예: 1 2 4) > ");
+		
+		for (int i = 0; i < count; i++)
+		{
+			int items = sc.nextInt();
+			
+			if (l.completeItem(items, 1) > 0)
+			{
+				System.out.println("완료: " + items);
+			}
+			else
+			{
+				System.out.println("비완료: " + items);
+			}	
+		}
+	}
+	public static void delcompleteItem(TodoList l)
+	{
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("항목 완료할 개수를 적어주세요 > ");
+		int count = sc.nextInt();
+		
+		System.out.println("항목 완료할 번호를 적어주세요 (예: 1 2 4) > ");
+		
+		for (int i = 0; i < count; i++)
+		{
+			int items = sc.nextInt();
+			
+			if (l.completeItem(items, 0) > 0)
+			{
+				System.out.println("완료: " + items);
+			}
+			else {
+				System.out.println("비완료: " + items);
+			}	
+		}
+	}
 	public static void findList(TodoList l, String keyword)
 	{
 		int count = 0;
@@ -150,6 +242,13 @@ public class TodoUtil {
 		for (TodoItem item : l.getOrderedList(orderby, ordering))
 		{
 			 System.out.println(item.toString());
+		}
+	}
+	public static void listAll(TodoList l, int is_completed)
+	{
+		for (TodoItem item : l.getList(is_completed))
+		{
+			System.out.println(item.toString());
 		}
 	}
 }
